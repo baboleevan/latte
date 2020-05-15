@@ -69,6 +69,10 @@ class FilterExecutor
 	{
 		if ($name == null) { // intentionally ==
 			array_unshift($this->_dynamic, $callback);
+
+		} elseif (!preg_match('#^[a-z]\w*$#iD', $name)) {
+			throw new \LogicException("Invalid filter name '$name'.");
+
 		} else {
 			$name = strtolower($name);
 			$this->_static[$name] = [$callback, null];
